@@ -106,6 +106,8 @@ extern "C" {
 #define HUGEPAGE_TRY                 1
 #define HUGEPAGE_ON                  2
 
+#define HISTORY_BACKEND_SQLITE       0
+
 #define VERSION_GREATER              1
 #define VERSION_EQUAL                0
 #define VERSION_LESS                 -1
@@ -431,6 +433,12 @@ struct configuration
    pgexporter_time_t metrics_query_timeout; /**< Timeout for metric queries */
    int management;                          /**< The management port */
    int console;                             /**< The console port */
+
+   int history;                         /**< The history API port (-1 = disabled) */
+   pgexporter_time_t history_interval;  /**< Interval between history snapshots */
+   pgexporter_time_t history_retention; /**< How long to retain history records */
+   int history_backend;                 /**< The history storage backend */
+   char history_path[MAX_PATH];         /**< Path for the history storage file */
 
    int bridge;                             /**< The bridge port */
    pgexporter_time_t bridge_cache_max_age; /**< Cache duration for bridge response */
